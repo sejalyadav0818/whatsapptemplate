@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Purple Admin</title>
+  <!-- plugins:css -->
+  <link rel="stylesheet" href="../../assets/vendors/mdi/css/materialdesignicons.min.css">
+  <link rel="stylesheet" href="../../assets/vendors/css/vendor.bundle.base.css">
+  <!-- endinject -->
+  <!-- Plugin css for this page -->
+  <!-- End plugin css for this page -->
+  <!-- inject:css -->
+  <!-- endinject -->
+  <!-- Layout styles -->
+  <!-- font-awasome cdn link-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <!-- font-awasome cdn link-->
+  <link rel="stylesheet" href="../../assets/css/style.css">
+  <!-- End layout styles -->
+  <link rel="shortcut icon" href="../../assets/images/favicon.ico" />
+</head>
+
+<body>
+  <div class="container-scroller">
+    <!-- partial:../../partials/_navbar.html -->
+    <nav class="navbar default-layout-navbar col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-center justify-content-center">
+        <a class="navbar-brand brand-logo" href="index.html"><img src="/assets/images/download.png" alt="logo" /></a>
+        <!-- <a class="navbar-brand brand-logo-mini" href="index.html"><img src="assets/images/download.png" 
+              alt="logo" /></a>-->
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-stretch">
+        <button class="navbar-toggler navbar-toggler align-self-center" type="button" data-toggle="minimize">
+          <span class="mdi mdi-menu"></span>
+        </button>
+        
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item nav-profile dropdown">
+
+            <a class="dropdown-item" href="#">
+              <i class="mdi mdi-logout me-2 text-primary"></i> Signout </a>
+
+          </li>
+
+
+
+
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button"
+          data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:../../partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+
+          <li class="nav-item">
+            <a class="nav-link" href="/index.html">
+              <span class="menu-title">Dashboard</span>
+              <i class="mdi mdi-home menu-icon"></i>
+            </a>
+          </li>
+
+
+
+          <li class="nav-item">
+            <a class="nav-link" href="#">
+              <span class="menu-title">Messages</span>
+              <i class="mdi mdi-table-large menu-icon"></i>
+            </a>
+          </li>
+
+
+
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="page-header">
+            <h3 class="page-title">
+              <span class="page-title-icon bg-gradient-primary text-white me-2">
+                <i class="mdi mdi-home"></i>
+              </span> Messages
+            </h3>
+            <!-- <nav aria-label="breadcrumb">
+              <ul class="breadcrumb">
+                <li class="breadcrumb-item active" aria-current="page">
+                  <span></span>Overview <i class="mdi mdi-alert-circle-outline icon-sm text-primary align-middle"></i>
+                </li>
+              </ul>
+            </nav> -->
+          </div>
+
+
+          <div class="row">
+            <div class="col-12 grid-margin">
+              <div class="card">
+                <div class="card-body">
+                  <h3 class="">Select Message Type</h3>
+                  <p></p>
+                  <!-- custom and Template heading -->
+                  <div class="custAndTem">
+                    <h5>
+                      <input type="radio" id="templateMsgSection" onchange="toggleTemplateMsgSection()"
+                        name="sameRadioButtons" checked> <label for="templateMsgSection"
+                        class="same-label-all">
+                        <p class="align-center">
+                          Pre-Defined Template
+                        </p></label> &nbsp; &nbsp;
+                      &nbsp;
+                      <input type="radio" id="customMsgRadioBtn" onchange="togleCustomMsgSection()"
+                        name="sameRadioButtons"> <label for="customMsgRadioBtn" class="same-label-all"><p class="align-center">
+                          Custom Message
+                        </p></label> 
+
+                      &nbsp; &nbsp;<input type="radio" id="calltoActionRadioButton"
+                        onchange="toggleInteractiveSection()" name="sameRadioButtons"> <label for="calltoActionRadioButton" class="same-label-all"> <p class="align-center">Interactive Messages</p> 
+                        </label>
+                    </h5>
+                  </div>
+                  <!----------------------- Template message starts --------------------->
+                  <div class="SucessMsgTemplate d-flex justify-content-center" id="showSucessMessage"> </div>
+                  <form id="togleTemplateMsg" onsubmit="event.preventDefault();parentFuncOf();">
+                    <div class="container mt-0 mb-5 p-5 col-10 shadow-lg text-secondary">
+                      <h2 class="text-center mb-4">Template Message</h2>
+
+                      <div class="bothCheckboxBtn d-flex">
+                        <div class="form-check sameInputHover">
+                          <input onchange="toggleCommaSeparatedInputField()" type="radio" value="" name="sameRadioBtn"
+                            id="commaSeparatedNumbersLikeArray" checked>
+                             <label for="commaSeparatedNumbersLikeArray"><strong>Mobile Number</strong> <span class="text-muted">(Single Number)</span></label> <!-- &nbsp;-->
+                        </div>
+                        <div class="form-check sameInputHover">
+                          <input onchange="toggleCsvFileINput()" type="radio" name="sameRadioBtn" value=""
+                            id="selectFileOption">
+                              <label for="selectFileOption"><strong>Bulk upload</strong> <span class="text-muted">(CSV File)</span></label>
+                        </div> 
+                        <!-- &nbsp;&nbsp;&nbsp;&nbsp; &nbsp;&nbsp; -->
+                      </div>
+
+                      <p></p>
+
+                      <div class="form-group" id="phoneNumInputField">
+                        <input type="text" onkeyup="phoneValidation()" name="phone" class="form-control p-2"
+                          id="phoneNumOfTemp" placeholder="Enter comma separated phone number template">
+                        <p class="text-danger" id="phError"></p>
+                      </div>
+
+                      <div class="mb-3" id="uploadCsvForBulkMsg">
+                        <label for="excelFile" class="label">
+                          <i class="fa-solid fa-cloud-arrow-up"></i><br>Upload CSV file for bulk entry </label>
+                        <input class="form-control w-50" onchange="attachFileValidation()" id="excelFile" type="file"
+                          accept=".xlsx" value="">
+                        <!-- id="formFile" -->
+                        <p class="text-danger" id="attachFileError"></p>
+                      </div>
+
+                      <div class="form-group">
+                        <!-- onblur="templateBoxValidation()"onkeyup="templateBoxValidation()" -->
+                        <select name="select" id="tempOfBtn" onchange="selectTemplateValidation()"
+                          class="w-100 text-secondary p-2">
+                          <option value="">SelectTemplate</option>
+                          <option value="Select this one #1">Select this one #1</option>
+                          <option value="Option #2">Option #2</option>
+                          <option value="hello_world">hello_world</option>
+                          <option value="Option #3">Option #3</option>
+                        </select>
+                        <p class="text-danger" id="selError"></p>
+                      </div>
+                      <p class="text-danger" id="templateError"></p>
+                      <!-- btn-dark -->
+                      <button type="submit" id="btn" class="btn w-100 btn-dark">Send
+                        Template</button>
+                    </div>
+                  </form>
+                  <!----------------------- Template message Ends --------------------->
+
+
+                  <!----------------------custom message starts------------------------->
+                  <!-- sendCustomMsgWithIncludingMedia();  sendCallOrActionResponse(); -->
+                  <form onsubmit="event.preventDefault(); sendCustomMsgWithIncludingMedia();">
+                    <div id="togleCustomMsg">
+
+                      <div class="alert-success w-25 text-center m-auto" id="successMsg" role="alert">
+                        <!-- show here Error Msg -->
+                      </div>
+                      <div class="container mt-0 mb-5 p-5 col-10 shadow-lg text-secondar">
+                        <h2 class="text-center text-muted mb-4">Custom Message</h2>
+
+                        <div class="bothCheckboxBtn d-flex">
+                          <div class="form-check">
+                            <input onchange="toggleCustomMsgInputFld()" type="radio" name="sameBtn" value=""
+                              id="selectCustomScvFile" checked>
+                           <label for="selectCustomScvFile"><strong class="text-muted">Mobile Number</strong> <span class="text-muted">(Single
+                              Number)</span></label>
+                          </div>
+                          <div class="form-check">
+                            &nbsp; <input name="sameBtn" onchange="toggleCustomCsvFileINputField()" type="radio"
+                              value="" id="customMsgCheckbox">
+                          <label for="customMsgCheckbox"><strong class="text-muted">Bulk upload</strong> <span class="text-muted">(CSV File)</span></label>  
+                          </div> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                        </div>
+                        <p></p>
+
+
+                        <div class="form-group" id="hideWhilePressOnBulk">
+                          <input type="text" name="mobileNumber" onkeyup="phoneNumberOfCustomMessageValidation()"
+                            class="form-control p-2" id="phone" placeholder="Enter Phone Numbers comma saperated cust">
+                          <p class="text-danger" id="phoneError"></p>
+                        </div>
+                        <div class="mb-3" id="togglecustomMsgUploadCsv">
+                          <label for="customMsgExcelFile" class="label">
+                            <i class="fa-solid fa-cloud-arrow-up"></i><br>Upload CSV file for bulk entry </label>
+                          <input id="customMsgExcelFile" onchange="fileinputErrorValidation()" type="file"
+                            accept=".xlsx">
+                          <p class="text-danger" id="fileNotSelect"></p>
+                        </div>
+
+
+                        <div class="form-group">
+                          <textarea placeholder="Write your Message Here..." onkeyup="InputValidationOfCustomMsg()"
+                            name="select" id="customMsgInputField"
+                            class="form-control w-100 text-secondary p-2"></textarea>
+                          <p class="text-danger" id="customFieldError"></p>
+                        </div>
+
+                        <div class="form-check">
+                          <input onchange="toggeleAttachmentsItems()" type="checkbox" value=""
+                            id="allAttachmentsInclude">
+                          Attachment
+                        </div>
+                        <div class="form-check" id="toggleAttachmentsContents">
+                          <input onchange="toggleAttachmentInputBoxVPI()" type="radio" name="custom-message-attach"
+                            id="imgRadioBtn">
+                          Image
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+
+                          <input onchange="toggleSecondContent()" type="radio" name="custom-message-attach" id="custom">
+                          Video
+                          &nbsp; &nbsp; &nbsp; &nbsp;
+
+                          <input onchange="toggleThirdContent()" type="radio" name="custom-message-attach"
+                            id="mediaBtn">
+                          PDF <br>
+
+                          <input onkeyup="" type="text" name="attachment-url" class="form-control p-2 mt-3"
+                            id="attachmentURL" placeholder="Enter URL of your media file"> <br>
+                          <p id="mediaUrlError"></p>
+                          <p>Max file size 100mb</p>
+                        </div>
+                        <button type="submit" id="btn" class="btn btn-dark w-100">send</button>
+                      </div>
+                    </div>
+                  </form>
+                  <!---------------------- custom message  Ends------------------------->
+
+                  <!--------------------- interactive messsage------------------- -->
+                  <form id="interactiveMessageSection" onsubmit="event.preventDefault();sendCallOrActionResponse();">
+                    <div class="container mt-0 mb-5 p-5 col-10 shadow-lg text-secondary">
+                      <h2 class="text-center mb-4">Interactive Message</h2>
+
+                      <div class="bothCheckboxBtn d-flex">
+                        <div class="form-check">
+                          <input onchange="showInputFieldOfInteractiveMsg()" type="radio" name="sameBtn" value=""
+                            id="InteractivePhoneNoInputBox" checked>
+                         <label for="InteractivePhoneNoInputBox"><strong class="text-muted">Mobile Number</strong> <span class="text-muted">(Single
+                            Number)</span></label> 
+                        </div>
+                        <div class="form-check">
+                          &nbsp; <input name="sameBtn" onchange="toggleInteractiveBulkMsgSection()" type="radio"
+                            value="" id="selectedInteractiveBulkRadio">
+                         <label for="selectedInteractiveBulkRadio"> <strong class="text-muted">Bulk upload inte</strong> <span class="text-muted">(CSV
+                            File)</span></label>
+                        </div> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;
+                      </div>
+
+
+
+
+
+                      <div class="form-group" id="hideInteractiveNumINputField">
+                        <input type="text" onkeyup="" name="phone" class="form-control p-2"
+                          id="phoneNumOfInteractiveMsg" placeholder="Enter phone number">
+                        <p class="text-danger" id=""></p>
+                      </div>
+                      <div class="mb-3" id="hideInteractiveFileSec">
+                        <label for="" class="label">
+                          <i class="fa-solid fa-cloud-arrow-up"></i><br>Upload CSV file for bulk entry </label>
+                        <input id="InteractiveSectionFile" onchange="" type="file" accept=".xlsx">
+                        <p class="text-danger" id="interactiveFileSec"></p>
+                      </div>
+
+
+
+
+                      <div class="form-group">
+                        <textarea placeholder="Write your Message Here..." onkeyup="" name="select"
+                          id="interactiveMsgVal" class="form-control w-100 text-secondary p-2"
+                          spellcheck="false"></textarea>
+                        <p class="text-danger" id="customFieldError"></p>
+                      </div>
+                      <!-- attachements -->
+                      <div class="form-check">
+                        <input onchange="toggleAttachmetsContent()" type="checkbox" value=""
+                          id="interactiveAttachement">
+                        <label for="interactiveAttachement">Attachment</label> 
+                      </div>
+                      <div class="form-check" id="showAttachmentsec">
+
+                        <div class="form-group" id="">
+                          <input type="text" onkeyup="" name="phone" class="form-control p-2" id="addMobileNum" placeholder="Add phone number">
+                          <p class="text-danger" id=""></p>
+                        </div>
+                        <div class="form-group" id="">
+                          <input type="text" onkeyup="" name="phone" class="form-control p-2" id="AddLink" placeholder="Add Site Link">
+                          <p class="text-danger" id=""></p>
+                        </div>
+
+                        
+                    
+                      </div>
+                      <!-- attachements -->
+                      <button type="submit" id="btn" class="btn w-100 btn-dark">Send
+                      </button>
+                    </div>
+                  </form>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid d-flex justify-content-between">
+            <span class="text-muted d-block text-center text-sm-start d-sm-inline-block">Copyright © bootstrapdash.com
+              2021</span>
+            <span class="float-none float-sm-end mt-1 mt-sm-0 text-end"> Free <a
+                href="https://www.bootstrapdash.com/bootstrap-admin-template/" target="_blank">Bootstrap admin
+                template</a> from Bootstrapdash.com</span>
+          </div>
+        </footer>
+        <!-- partial -->
+      </div>
+      <!-- main-panel ends -->
+    </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <script src="/static/assets/vendors/js/vendor.bundle.base.js"></script>
+
+  <!-- all js file -->
+  <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+  <script src="/static/panelJS/customMsg.js"></script>
+  <script src="/static/panelJS/templateMsg.js"></script>
+  <script src="/static/panelJS/toggles.js"></script>
+  <script src="/static/panelJS/SendInteractiveMsg.js"></script>
+  <!-- all js file -->
+
+  <script src="/static/assets/js/off-canvas.js"></script>
+  <script src="/static/assets/js/hoverable-collapse.js"></script>
+  <script src="/static/assets/js/misc.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,272 @@
+<%- include('partials/head.ejs') %>
+
+  <body>
+
+    <style>
+      .parentContainerOfAllchild {
+        min-height: 100%;
+        background: white;
+      }
+
+      .buttonsSection {
+        /* padding: 15px; */
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row-reverse;
+      }
+
+      .buttonsSection a:hover {
+        color: white;
+      }
+
+      .buttonsSection a {
+        text-decoration: none;
+      }
+
+      .buttonsSection a {
+        background-color: #ffffff;
+      }
+
+
+  
+      .table td {
+                       max-width: 200px;
+                       white-space: nowrap;
+                       overflow: hidden;
+                       text-overflow: ellipsis;
+                       white-space: normal;
+                       word-wrap: break-word;
+                   }
+      /* Additional styles for your form elements can be added here */
+
+#UniqueDesignForModal{
+  width: 50%;
+  margin: auto;
+  margin-top: 17%;                        
+  background: white;                                             
+}
+
+
+
+/* loading animation */
+
+    </style>
+
+    
+
+    <div class="container-scroller">
+      <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid page-body-wrapper">
+          <%- include('partials/sidebar.ejs') %>
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="page-header">
+                  <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-primary text-white me-2">
+                      <i class="mdi mdi-home"></i>
+                      <!-- <img src="/static/assets/images/home-gradient.png" alt="" style="width: 35px;"> -->
+                    </span> campaigns
+                  </h3>
+                </div>
+                <!-- add custom code here -->
+                <!-- modal starts-->
+                <div class="buttonsSection">
+                  <!-- <a href="/campaignHistory" class="button-12" style="background-color: #464646">Campaign History</a> -->
+
+
+                  <a href="/createCampaigns" class="button-12" id="openModalBtn"
+                    style="display: flex; align-items: center;">
+                    <span style="margin-left: -18px; color: black;">Create</span>
+                    <i class="fa-solid fa-plus" style="margin-left: 56px; margin-top: -17px; color:black;"></i>
+                  </a>
+                </div>
+
+
+                <!-- <div class="parentContainerOfAllchild"> -->
+
+                <!-- modal ends -->
+
+
+
+                <div class="row" style="margin-top: 6px;">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                        
+
+ <!-- <a href="/campaignHistory">campaign history</a> -->
+ <a href="/detaildcampaignHistory">Click here</a>
+
+ <h1></h1>
+
+                        <input type="search" style="float: right;" onkeyup="searchHere()" id="searchInput" name="q"
+                          placeholder="Search...." aria-label="Search">
+                        <div class="containPaginationINfo">
+                          <!-- <h3>Message Has Been Sent</h3> -->
+                        </div>
+
+                        <table class="table">
+                          <!-- style="background-color: lightgray;" -->
+                          <thead>
+                              <tr>
+                                  <th>Index</th>
+                                  <th>Campaign Name</th>
+                                  <th>Message Type</th>
+                                  <th>Created At</th>
+                                  <th>Action</th> <!-- Add a new column for the button -->
+                              </tr>
+                          </thead>
+                          <tbody>
+                              <% for (let i=0; i < campaigns.length; i++) { %>
+                              <tr>
+                                  <td>
+                                      <%= i + 1 %>
+                                  </td>
+                                  <td>
+                                      <!-- <a href="#"> -->
+                                      <%= campaigns[i].phoneOfTemp %>
+                                      <!-- </a> -->
+                                  </td>
+                                  <td>
+                                      <%= campaigns[i].messageType %>
+                                  </td>
+                                  <td>
+                                      <%= new Date(campaigns[i].createdAt).toLocaleString('en-US', { timeZone: 'Asia/Kolkata' }) %>
+                                  </td>
+                      
+                                  <td style="width: 92px;">
+                                      <a href="#" onclick="redirectToSendCampaign('<%= campaigns[i].phoneOfTemp %>', '<%= campaigns[i].messageType %>')"
+                                          style="text-decoration: none; color: white; background-color: #015401; padding: 5px; border-radius: 3px; display: flex; justify-content: space-between;">
+                                          <i class="fa fa-paper-plane" aria-hidden="true" style="color: white"></i><span>Sent</span>
+                                      </a>
+                                  </td>
+                              </tr>
+                              <% } %>
+                          </tbody>
+                      </table>
+
+                        <!-- Pagination -->
+                        <div class="paginationContainer">
+
+                        </div>
+                        <!-- Pagination -->
+                      </div>
+                      
+                    </div>
+                  </div>
+                </div>
+                <!-- add custom code here -->
+              </div>
+              <%- include('partials/footer.ejs') %>
+            </div>
+        </div>
+    </div>
+
+  <script>
+      function redirectToSendCampaign(phoneOfTemp, messageType) {
+          if (messageType === 'custom') {
+              window.location.href = `/sendCampaignMessage?phoneOfTemp=${phoneOfTemp}&messageType=custom`;
+          } else if (messageType === 'template') {
+              window.location.href = `/sendCampaignMessage?phoneOfTemp=${phoneOfTemp}&messageType=template`;
+          }
+      }
+  </script>
+
+                <!-- test here  -->
+                        <!-- Modal -->
+                        <div id="campaignModal" class="modal"  style="background-color: rgba(0, 0, 0, 0.4);">
+                          <div class="modal-content" id="UniqueDesignForModal">
+                            <div class="secondDiv" style="padding: 16px;">
+                              <span class="close" onclick="closeModal()" style="cursor: pointer;">&times;</span>
+                                <h3 class="text-center" style="padding: 10px;">Campaign Details</h3>
+                              <p id="modalCampaignName"></p>
+                              <p id="modalMessageType"></p>
+                              <p id="modalmessage"></p>
+                              <p id="modalCategoryName"></p>
+                              <p id="modalFileName"></p>
+                              <p id="modalPhoneNumbers"></p>
+                              <p id="modalCreatedAt"></p>
+
+                              <div class="sendBtn">
+                                <!-- <a href="/sendCampaignMessage/<%= encodeURIComponent(campaigns?.phoneOfTemp) %>/<%= encodeURIComponent(campaigns?.messageType) %>/<%= encodeURIComponent(campaigns?.message) %>"  style="text-decoration: none; -->
+                                <a href="#"  style="text-decoration: none;
+                                color: white;
+                                background-color: #015401;
+                                padding: 7px;
+                                border-radius: 3px;
+                                display: flex;
+                                width: 50%;
+                                margin: auto;">
+                                  <span style="margin: auto;
+                                  display: flex;
+                                  justify-content: space-between;
+                                  width: 40%;">Sent Message </span>
+                                </a>
+                              </div>
+                             
+                            </div>
+                          </div>
+                        </div>
+                <!-- test here  -->
+
+
+   
+
+
+    <script>
+      function displaySelectedFile() {
+        var fileInput = document.getElementById("excelFile");
+        var fileError = document.getElementById("showHereSelectedFile");
+
+        if (fileInput.files.length > 0) {
+          var selectedFileName = fileInput.files[0].name;
+          fileError.innerText = selectedFileName;
+        } else {
+          fileError.innerText = ""; // Clear the error message if no file is selected
+        }
+      }
+
+      // popmodal script start here
+
+    </script>
+
+
+<script>
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+  };
+</script>
+
+
+
+
+<script>
+  function openModal(campaignName, messageType,message,categoryName,fileName,phoneNumbers, createdAt) {
+    // Populate the modal with data
+    document.getElementById("modalCampaignName").textContent ="Campaign Name: "+ campaignName;
+    document.getElementById("modalMessageType").textContent = "Message Type: " + messageType;
+    document.getElementById("modalmessage").textContent = "Message Content: " + message;
+    document.getElementById("modalCategoryName").textContent = "Category Name: " + categoryName;
+    document.getElementById("modalFileName").textContent = "File Name: " + fileName;
+    document.getElementById("modalPhoneNumbers").textContent = "Phone Numbers: " + phoneNumbers;
+    document.getElementById("modalCreatedAt").textContent = "Sended At: " + createdAt;
+    // Add more lines to populate additional fields
+
+    // Display the modal
+    var modal = document.getElementById("campaignModal");
+    modal.style.display = "block";
+  }
+
+  // Function to close the modal
+  function closeModal() {
+    var modal = document.getElementById('campaignModal');
+    modal.style.display = 'none'; // Hide the modal
+  }
+  
+</script>
+  </body>
+
+  <%- include('partials/scripts.ejs') %>
+
+    </html>

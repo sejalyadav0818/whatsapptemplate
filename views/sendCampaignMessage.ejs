@@ -1,0 +1,266 @@
+<%- include('partials/head.ejs') %>
+
+  <body>
+
+    <style>
+      .parentContainerOfAllchild {
+        min-height: 100%;
+        background: white;
+      }
+
+      .bothCheckboxBtn {
+        display: flex;
+        justify-content: space-between;
+        max-width: 480px;
+      }
+
+      /* #toggelSelectCategory{
+         position: relative;
+        margin-top: 0px !important;
+        margin-bottom: 0px !important;
+        padding-left: 0 !important; 
+
+      } */
+
+      #uploadCsvForBulkMsg {
+        display: block;
+      }
+      #campaignDataContainer{
+        padding: 20px;
+    /* border: 1px solid; */
+    background: #e6eaf1;
+    border-radius: 7px;
+}
+#campaignDataContainer h2{text-align: center; padding: 10px;}
+.showAllCampaignsDetails{
+                             padding-left: 2rem;
+                             font-size: 1rem;
+                           }
+
+
+                         
+
+
+
+
+      /* Additional styles for your form elements can be added here */
+    </style>
+
+    <div class="container-scroller">
+      <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid page-body-wrapper">
+          <%- include('partials/sidebar.ejs') %>
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="page-header">
+                  <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-primary text-white me-2">
+                      <i class="mdi mdi-home"></i>
+                      <!-- <img src="/static/assets/images/home-gradient.png" alt="" style="width: 35px;"> -->
+                    </span> send Campaign
+                  </h3>
+                </div>
+                <!-- add custom code here -->
+
+
+                <!-- style="max-height: 200px;" -->
+                <a href="/campaigns" style="background: white;
+                color: black;
+                text-decoration: none;
+                padding: 5px;
+                border-radius: 4px;
+                float: right;margin-top: -32px; font-weight: 600;">Campaign Lists</a>
+                <div class="row">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+                  
+
+                        <form id="campaignForm" onsubmit="return validateForm()" action="/SentMessagetothisCampaign" method="post" enctype="multipart/form-data">
+
+                          <div class="CreatemodalForm">
+                         
+                        
+                         
+                            
+
+                              
+
+
+                          <!-- <div class="form-check sameInputHover" onclick="showCampaignDetailsContainer()">
+                              <input class="form-check-input" type="checkbox" style="margin-left: 21px;" value="" id="checkSElectCAtegory">
+                              <label class="form-check-label" style="margin-left: 48px;" for="checkSElectCAtegory">
+                                  Show Campaign Details
+                              </label>
+                          </div> -->
+
+                            <div class="form-check sameInputHover" id="campaignDataContainer">
+                              <h2>Campaign Details</h2>
+                              <ul class="showAllCampaignsDetails">
+                                <li><strong>Campaign Name:</strong> <%= campaign.phoneOfTemp %></li>
+                                <li><strong>Message Type:</strong> <%= campaign.messageType %></li>
+                                <li><strong>Message Content:</strong> <%= campaign.message %></li>
+                                <!-- Add more campaign details here if needed -->
+                              </ul>
+                            </div>
+                            <h2 class="text-center">select contacts</h2>
+
+                            <!-- radio buttons -->
+<div class="bothCheckboxBtn">
+
+  <input type="hidden" name="campaignName" value="<%= campaign.phoneOfTemp %>">
+  <input type="hidden" name="messageType" value="<%= campaign.messageType %>">
+  <input type="hidden" name="messageContent" value="<%= campaign.message %>">
+  
+    <div class="form-check" id="showTmpltMsg" onclick="showFilUploader()">
+      <input type="radio" name="sameName" value="Templatemessage" id="TemplateMessage">
+      <label for="TemplateMessage"><strong class="text-muted">import contact</strong></label>
+    </div>
+
+    <div class="form-check" onclick="showSingleNumberInput()">
+      <input type="radio" name="sameName" value="singleInputField" id="singleNumberEntry">
+      <label for="singleNumberEntry"><strong class="text-muted">Enter Single Number</strong></label>
+    </div>
+
+    <div class="form-check" onclick="showSelecteCategoryInput()">
+      <input type="radio" name="sameName" value="selectCat" id="SelectCategoryOfContact">
+      <label for="SelectCategoryOfContact"><strong class="text-muted">Select Category</strong></label>
+    </div>
+
+  </div>
+  <!-- radio buttons -->
+  <div class="mb-3" id="uploadCsvForBulkMsg">
+    <label for="excelFile" class="label" id="showFileName">
+      <i class="fa-solid fa-cloud-arrow-up"></i><br>Upload CSV file for bulk entry
+    </label>
+    <input class="form-control w-50" onchange="displayFileName()" name="extractExcel" id="excelFile" type="file" accept=".xlsx">
+  </div>
+
+  <div class="form-group" id="phoneNumInputField">
+      <input type="text" name="MobileNumberswithComma" class="form-control p-2" id="phoneNumOfTemp" placeholder="Enter comma separated phone number template">
+  </div>
+
+  <div class="form-check sameInputHover" id="hideANdShowCategorySEction" style="display: block;" onclick="">
+    <select id="categorySelect" name="category" class="w-100 text-secondary p-2">
+      <option value="">Select a category</option>
+      <% categories.forEach(category => { %>
+        <option value="<%= category %>"><%= category %></option>
+      <% }); %>
+    </select>
+      <ul id="mobileNumbersList"></ul>
+  </div>
+                            <button class="button-12" type="submit" style="background: darkgreen;
+                            color: white;">Sent Message</button>
+
+                          </div>
+                        </form>
+                        
+                        
+
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- add custom code here -->
+              </div>
+              <%- include('partials/footer.ejs') %>
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+    <script>
+      document.getElementById('hideANdShowCategorySEction').style.display='none';
+      document.getElementById('uploadCsvForBulkMsg').style.display = 'none';
+      document.getElementById('hideANdShowCategorySEction').style.display = 'none';
+      document.getElementById('phoneNumInputField').style.display = 'none';
+
+      showFilUploader = () => {
+        if (document.getElementById('TemplateMessage').checked) {
+          document.getElementById('uploadCsvForBulkMsg').style.display = 'block';
+          document.getElementById('phoneNumInputField').style.display = 'none';
+          document.getElementById('phoneNumInputField').style.display = 'none';
+          document.getElementById('hideANdShowCategorySEction').style.display = 'none';
+        }
+      }
+      showSingleNumberInput = () => {
+        if (document.getElementById('singleNumberEntry').checked) {
+          document.getElementById('phoneNumInputField').style.display = 'block';
+          document.getElementById('uploadCsvForBulkMsg').style.display = 'none';
+          document.getElementById('hideANdShowCategorySEction').style.display = 'none';
+        }
+      }
+
+      showSelecteCategoryInput=()=>{
+        if(document.getElementById('SelectCategoryOfContact').checked){
+            document.getElementById('hideANdShowCategorySEction').style.display = 'block';
+            document.getElementById('phoneNumInputField').style.display = 'none';
+            document.getElementById('uploadCsvForBulkMsg').style.display = 'none';
+
+        }
+      }
+
+
+
+//  campaign div toggle
+      // document.getElementById('campaignDataContainer').style.display='none';
+      // showCampaignDetailsContainer=()=>{
+      //   if(document.getElementById('checkSElectCAtegory').checked){
+      //     document.getElementById('campaignDataContainer').style.display='block';
+      //   }else{
+      //     document.getElementById('campaignDataContainer').style.display='none';
+      //   }
+      // }
+
+
+
+
+      function displayFileName() {
+                    const fileInput = document.getElementById('excelFile');
+                    const uploadedFileName = document.getElementById('uploadedFileName');
+
+                    if (fileInput.files.length > 0) {
+                      uploadedFileName = document.getElementById('showFileName').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i>${fileInput.files[0].name}`;
+                    } else {
+                      uploadedFileName.textContent = "";
+                    }
+                  }
+    </script>
+
+
+<script>
+   function displayFileName() {
+                    const fileInput = document.getElementById('excelFile');
+                    const uploadedFileName = document.getElementById('uploadedFileName');
+
+                    if (fileInput.files.length > 0) {
+                      uploadedFileName = document.getElementById('showFileName').innerHTML = `<i class="fa-solid fa-cloud-arrow-up"></i>${fileInput.files[0].name}`;
+                    } else {
+                      uploadedFileName.textContent = "";
+                    }
+                  }
+</script>
+
+
+
+
+<script>
+   function validateForm() {
+    var selectedRadio = document.querySelector('input[name="sameName"]:checked');
+    if (!selectedRadio) {
+      alert("Please select contacts before sending the message.");
+      return false; 
+    }
+    return true;
+  }
+</script>
+  </body>
+
+  <%- include('partials/scripts.ejs') %>
+
+    </html>

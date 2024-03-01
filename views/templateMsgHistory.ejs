@@ -1,0 +1,108 @@
+<%- include('partials/head.ejs') %>
+
+
+    <body>
+
+        <div class="container-scroller">
+            <%- include('partials/navbar.ejs') %>
+                <div class="container-fluid page-body-wrapper">
+                    <%- include('partials/sidebar.ejs') %>
+
+
+                        <div class="main-panel">
+                            <div class="content-wrapper">
+                                <div class="page-header">
+                                    <h3 class="page-title">
+                                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                            <i class="mdi mdi-home"></i>
+                                        </span>Template Message histroy
+                                    </h3>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+                                                <div class="containPaginationINfo">
+                                                    <h4 class="card-title">Message History</h4>
+                                                    <h6 class='secondH4Tag'>Total Record <%= totalDataInDb %>
+                                                    </h6>
+                                                </div>
+                                                <p class="card-description"> You can <code>sort</code> the data by
+                                                    clicking on the titles.
+                                                </p>
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th><a
+                                                                    href="/templateMsgHistory?sortField=index&sortOrder=<%= sortOrder === 'asc' ? 'desc' : 'asc' %>">Index<i
+                                                                        class="fa-solid fa-sort"></i></a></th>
+                                                            <th><a
+                                                                    href="/templateMsgHistory?sortField=phoneOfTemp&sortOrder=<%= sortOrder === 'asc' ? 'desc' : 'asc' %>">Mobile
+                                                                    No<i class="fa-solid fa-sort"></i></a></th>
+                                                            <th><a
+                                                                    href="/templateMsgHistory?sortField=selectTemp&sortOrder=<%= sortOrder === 'asc' ? 'desc' : 'asc' %>">Template
+                                                                    Name<i class="fa-solid fa-sort"></i></a></th>
+                                                            <th><a
+                                                                    href="/templateMsgHistory?sortField=created_at&sortOrder=<%= sortOrder === 'asc' ? 'desc' : 'asc' %>">Date
+                                                                    and time<i class="fa-solid fa-sort"></i></a></th>
+                                                            <th>Status</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                    <tbody>
+                                                        <% let counter=(currentPage - 1) * ITEMS_PER_PAGE + 1; %>
+                                                            <% items.forEach(item=> { %>
+
+                                                                <tr>
+                                                                    <td>
+                                                                        <%= counter %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= item.phoneOfTemp %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= item.selectTemp %>
+                                                                    </td>
+                                                                    <td>
+                                                                        <%= new
+                                                                            Date(item.created_at).toLocaleString('en-US',
+                                                                            { timeZone: 'Asia/Kolkata' }) %>
+                                                                    </td>
+
+                                                                    <td>Delivered / Not Delivered</td>
+                                                                </tr>
+
+                                                                <% counter++; %>
+                                                                    <% }); %>
+                                                    </tbody>
+
+                                                </table>
+
+
+
+                                                <!-- Pagination -->
+                                                <div class="paginationContainer">
+                                                    <% if (currentPage> 1) { %>
+                                                       
+                                                            <a href="/templateMsgHistory?page=<%= currentPage - 1 %>" class="button-12">Previous</a>
+                                                        
+                                                        <% } %>
+
+                                                            <% if (currentPage < totalPages) { %>
+                                                                
+                                                                    <a href="/templateMsgHistory?page=<%= currentPage + 1 %>" class="button-12">Next</a>
+                                                                
+                                                                <% } %>
+                                                </div>
+
+                                            </div>
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+
+    </body>
+    <%- include('partials/scripts.ejs') %>
+
+        </html>

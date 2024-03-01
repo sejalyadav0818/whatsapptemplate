@@ -1,0 +1,144 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+        <div class="container-scroller">
+            <%- include('partials/navbar.ejs') %>
+                <!-- partial -->
+                <div class="container-fluid page-body-wrapper">
+                    <!-- partial:../../partials/_sidebar.html -->
+                    <%- include('partials/sidebar.ejs') %>
+                        <!-- partial -->
+                        <div class="main-panel">
+                            <div class="content-wrapper">
+                                <div class="page-header">
+                                    <h3 class="page-title">
+                                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                            <i class="mdi mdi-home"></i>
+                                        </span> Profile
+                                    </h3>
+                                </div>
+                                <!-- put here -->
+                                <div class="card">
+                                    <div class="card-body">
+                                        <table class="table">
+                                            <div id="userDetailsContainer"></div>
+                                        </table>
+                                    </div>
+                                    <div class="card-body">
+                                        <table class="table" id="data-table">
+                        
+                                            <tbody>
+                                                <h2>User Details</h2>
+                                                <% for (let i=0; i < userDetails.length; i++) { %>
+                                                    <tr>
+                                                        <td>First Name</td>
+                                                        <td>:</td>
+                                                        <td><%= userDetails[i].fname %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Last Name</td>
+                                                        <td>:</td>
+                                                        <td><%= userDetails[i].lname %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Phone No</td>
+                                                        <td>:</td>
+                                                        <td><%= userDetails[i].phoneNum %></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Email</td>
+                                                        <td>:</td>
+                                                        <td><%= userDetails[i].userEmail %></td>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+
+                                    <div class="card-body">
+                                        <h2>Business Details</h2>
+                                        <table class="table" id="data-table">
+                                        
+                                            <tbody>
+                                                <% for (let i=0; i < userDetails.length; i++) { %>
+
+                                                <tr>
+                                                    <td>id</td>
+                                                    <td>:</td>
+                                                    <td><%= userDetails[i].id %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>code_verification_status</td>
+                                                    <td>:</td>
+                                                    <td><%= userDetails[i].code_verification_status %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>display_phone_number</td>
+                                                    <td>:</td>
+                                                    <td><%= userDetails[i].display_phone_number %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>quality_rating</td>
+                                                    <td>:</td>
+                                                    <td><%= userDetails[i].quality_rating %></td>
+                                                </tr>
+                                                <tr>
+                                                    <td>verified_name</td>
+                                                    <td>:</td>
+                                                    <td><%= userDetails[i].verified_name %></td>
+                                                </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                </div>
+                                <!-- put here -->
+                            </div>
+                            <%- include('partials/footer.ejs') %>
+                        </div>
+                </div>
+        </div>
+        <%- include('partials/scripts.ejs') %>
+    </body>
+
+    <!-- <script>
+     const GRAPH_API_URL = 'https://graph.facebook.com/v17.0/116168451372633?fields=verified_name,code_verification_status,display_phone_number,quality_rating,id';
+
+const tableBody = document.querySelector('#data-table tbody');
+
+fetch(GRAPH_API_URL,{
+    headers: {
+        Authorization: `Bearer EAAWqeZCMrJ6sBO7zUipLVLmnOdyF0ZBPcMyJC17gRmcZAZAnn3mMbRkvb19SFMiwvZCaIhuZAeB1C0QCrgfJK193Hav9kIDsKM5ZCvFAVkjgAkb57BOj2DWULJmEDvdxjpp01hpsznvZA7ZBVaO22QQdFjmfa0bggPndsH81BegAEgD8hSak3Pz8woVvPwLOMKAOnNLVEiDggLACVbaru`,
+        "Content-Type": "application/json",
+      }
+})
+    .then(response => response.json())
+    .then(data => {
+        const fieldsToShow = [
+            'verified_name',
+            'code_verification_status',
+            'display_phone_number',
+            'quality_rating',
+            'id'
+        ];
+
+        fieldsToShow.forEach(fieldName => {
+            const row = document.createElement('tr');
+            const fieldCell = document.createElement('td');
+            fieldCell.textContent = fieldName;
+            const valueCell = document.createElement('td');
+            valueCell.textContent = data[fieldName] || 'N/A';
+
+            row.appendChild(fieldCell);
+            row.appendChild(valueCell);
+            tableBody.appendChild(row);
+        });
+    })
+    .catch(error => {
+        console.error('Error fetching data:', error);
+    });
+
+    </script> -->
+    </html>

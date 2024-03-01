@@ -1,0 +1,145 @@
+<%- include('partials/head.ejs') %>
+
+  <body>
+
+    <style>
+      .parentContainerOfAllchild {
+        min-height: 100%;
+        background: white;
+      }
+
+      .buttonsSection {
+        /* padding: 15px; */
+        justify-content: space-between;
+        display: flex;
+        flex-direction: row-reverse;
+      }
+
+      .buttonsSection a:hover {
+        color: white;
+      }
+
+      .buttonsSection a {
+        text-decoration: none;
+      }
+
+      .buttonsSection a {
+        background-color: #ffffff;
+      }
+
+
+  
+      .table td {
+                       max-width: 200px;
+                       white-space: nowrap;
+                       overflow: hidden;
+                       text-overflow: ellipsis;
+                       white-space: normal;
+                       word-wrap: break-word;
+                   }
+      /* Additional styles for your form elements can be added here */
+
+#UniqueDesignForModal{
+  width: 50%;
+  margin: auto;
+  margin-top: 17%;                        
+  background: white;                                             
+}
+
+
+
+/* loading animation */
+
+    </style>
+
+    
+
+    <div class="container-scroller">
+      <%- include('partials/navbar.ejs') %>
+        <div class="container-fluid page-body-wrapper">
+          <%- include('partials/sidebar.ejs') %>
+            <div class="main-panel">
+              <div class="content-wrapper">
+                <div class="page-header">
+                  <h3 class="page-title">
+                    <span class="page-title-icon bg-gradient-primary text-white me-2">
+                      <i class="mdi mdi-home"></i>
+                      <!-- <img src="/static/assets/images/home-gradient.png" alt="" style="width: 35px;"> -->
+                    </span> campaigns
+                  </h3>
+                </div>
+
+
+
+
+
+                <div class="row" style="margin-top: 6px;">
+                  <div class="col-lg-12 grid-margin stretch-card">
+                    <div class="card">
+                      <div class="card-body">
+
+
+                        <form action="/saveAPICredentials" method="post">
+                            <input type="text" value="<%=userEmail%>" hidden>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" name="API_LINK" value="" placeholder="Enter here API link">
+                            </div>
+                            <div class="form-group">
+                                <input type="text" class="form-control form-control-lg" id="exampleInputUsername1" name="BearerToken" value="" placeholder="Enter here Bearer Token">
+                            </div>
+                            <button style="background: #006000;
+                          color: white;
+                          border-radius: 6px;
+                          border: none;
+                          padding: 8px;
+                          width: 100%;">Save</button>
+                    </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <%- include('partials/footer.ejs') %>
+            </div>
+        </div>
+    </div>
+
+
+                
+   
+
+
+    <script>
+      function displaySelectedFile() {
+        var fileInput = document.getElementById("excelFile");
+        var fileError = document.getElementById("showHereSelectedFile");
+
+        if (fileInput.files.length > 0) {
+          var selectedFileName = fileInput.files[0].name;
+          fileError.innerText = selectedFileName;
+        } else {
+          fileError.innerText = ""; // Clear the error message if no file is selected
+        }
+      }
+
+      // popmodal script start here
+
+    </script>
+
+
+<script>
+  window.history.pushState(null, null, window.location.href);
+  window.onpopstate = function () {
+    window.history.pushState(null, null, window.location.href);
+  };
+</script>
+
+
+
+
+
+  </body>
+
+  <%- include('partials/scripts.ejs') %>
+
+    </html>

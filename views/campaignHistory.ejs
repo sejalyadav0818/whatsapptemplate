@@ -1,0 +1,207 @@
+<%- include('partials/head.ejs') %>
+
+    <body>
+
+        <style>
+            .parentContainerOfAllchild {
+                min-height: 100%;
+                background: white;
+            }
+
+            .buttonsSection {
+                padding: 15px;
+                justify-content: space-between;
+                display: flex;
+            }
+
+            .buttonsSection a:hover {
+                color: white;
+            }
+
+            .buttonsSection a {
+                text-decoration: none;
+            }
+
+            .buttonsSection a {
+                background-color: #015401;
+            }
+
+
+            .table td {
+                max-width: 200px;
+                /* Adjust the width as needed */
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: normal;
+                word-wrap: break-word;
+            }
+
+
+
+
+
+            /* Additional styles for your form elements can be added here */
+        </style>
+
+        <div class="container-scroller">
+            <%- include('partials/navbar.ejs') %>
+                <div class="container-fluid page-body-wrapper">
+                    <%- include('partials/sidebar.ejs') %>
+                        <div class="main-panel">
+                            <div class="content-wrapper">
+                                <div class="page-header">
+                                    <h3 class="page-title">
+                                        <span class="page-title-icon bg-gradient-primary text-white me-2">
+                                            <i class="mdi mdi-home"></i>
+                                            <!-- <img src="/static/assets/images/home-gradient.png" alt="" style="width: 35px;"> -->
+                                        </span> campaigns history
+                                    </h3>
+                                </div>
+                                <!-- add custom code here -->
+
+                                <!-- modal starts-->
+
+
+
+                                <!-- <div class="parentContainerOfAllchild"> -->
+
+                                <!-- modal ends -->
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-12 grid-margin stretch-card">
+                                        <div class="card">
+                                            <div class="card-body">
+
+                                                <input type="search" style="float: right;" onkeyup="searchHere()"
+                                                    id="searchInput" name="q" placeholder="Search...."
+                                                    aria-label="Search">
+<div class="containPaginationINfo">
+<!-- add anything -->
+</div>
+
+                                                <table class="table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th scope="col">#</th>
+                                                            <th scope="col">Campaign Name</th>
+                                                            <th scope="col">Message Type</th>
+                                                            <th scope="col">Message Content</th>
+                                                            <th scope="col">Contacts</th>
+                                                            <!-- <th scope="col">Created At</th> -->
+                                                            <!-- <th scope="col">Action</th> -->
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <% campaignhistory.forEach(function(campaign, index) { %>
+                                                            <tr>
+                                                                <td scope="row"><%= index + 1 %></td>
+                                                                <td><%= campaign.campaignName %></td>
+                                                                <td><%= campaign.messageType %></td>
+                                                                <td>
+                                                                    <% if (campaign.messageType === 'custom' && campaign.message.length > 15) { %>
+                                                                        <span class="truncated-message">
+                                                                            <%= campaign.message.split(' ').slice(0, 15).join(' ') %>...
+                                                                            <a href="#" class="read-more">Read more</a>
+                                                                        </span>
+                                                                        <span class="full-message" style="display: none;">
+                                                                            <%= campaign.message %>
+                                                                            <a href="#" class="read-less">Read less</a>
+                                                                        </span>
+                                                                    <% } else { %>
+                                                                        <%= campaign.message %> <!-- Display the full message if not custom or not too long -->
+                                                                    <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <% if (campaign.categoryName) { %>
+                                                                        <%= campaign.categoryName %> 
+                                                                    <% } %>
+                                                                    <% if (campaign.categoryName && campaign.fileName) { %>
+                                                                        /
+                                                                    <% } %>
+                                                                    <% if (campaign.fileName) { %>
+                                                                        <%= campaign.fileName %>
+                                                                    <% } %>
+
+                                                                    <% if (campaign.phoneNumbers) { %>
+                                                                        <%= campaign.phoneNumbers %>
+                                                                    <% } %>
+                                                                </td>
+                                                                <td>
+                                                                    <!-- Add actions such as edit and delete buttons here -->
+                                                                </td>
+                                                            </tr>
+                                                        <% }); %>
+                                                    </tbody>
+
+                                                </table>
+
+
+
+
+                                                <!-- Pagination -->
+                                                <div class="paginationContainer">
+
+                                                </div>
+                                                <!-- Pagination -->
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- add custom code here -->
+                            </div>
+                            <%- include('partials/footer.ejs') %>
+                        </div>
+                </div>
+        </div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $('.read-more').click(function (e) {
+            e.preventDefault();
+            $(this).parent('.truncated-message').hide();
+            $(this).parent().siblings('.full-message').show();
+        });
+
+        $('.read-less').click(function (e) {
+            e.preventDefault();
+            $(this).parent('.full-message').hide();
+            $(this).parent().siblings('.truncated-message').show();
+        });
+    });
+</script>
+
+
+        <script>
+            window.history.pushState(null, null, window.location.href);
+            window.onpopstate = function () {
+                window.history.pushState(null, null, window.location.href);
+            };
+        </script>
+
+
+        <script>
+            function displaySelectedFile() {
+                var fileInput = document.getElementById("excelFile");
+                var fileError = document.getElementById("showHereSelectedFile");
+
+                if (fileInput.files.length > 0) {
+                    var selectedFileName = fileInput.files[0].name;
+                    fileError.innerText = selectedFileName;
+                } else {
+                    fileError.innerText = ""; // Clear the error message if no file is selected
+                }
+            }
+
+
+        </script>
+    </body>
+
+    <%- include('partials/scripts.ejs') %>
+
+        </html>
