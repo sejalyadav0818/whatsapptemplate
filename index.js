@@ -14,7 +14,7 @@ require('./database/conn');
 
 app.use(cookieParser());
 
-//send simple message
+
 app.get("/", (req, res) => {
   try {
     res.render("demotemplate");
