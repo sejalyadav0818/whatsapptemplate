@@ -196,7 +196,7 @@ app.post('/secondsendtemplateMessage', async (req, res) => {
 // });
 
 
-app.post('/sendtemplatemessagess/:phoneNumber/:selectTemp/:otpCode', async (req, res) => {
+app.get('/sendtemplatemessagess/:phoneNumber/:selectTemp/:otpCode', async (req, res) => {
   try {
     const { phoneNumber, selectTemp, otpCode } = req.params;
 
