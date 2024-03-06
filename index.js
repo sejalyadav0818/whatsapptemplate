@@ -240,6 +240,41 @@ app.get('/sendtemplatemessagess/:phoneNumber/:selectTemp/:otpCode', async (req, 
   }
 });
 
+
+//hello_world
+//new
+app.get('/sendtemplate/:phoneNumber/:selectTemp', async (req, res) => {
+  try {
+    const { phoneNumber, selectTemp } = req.params;
+
+    const response = await axios.post(
+      `https://graph.facebook.com/v18.0/101625952828140/messages?phone=${phoneNumber}`,
+      {
+        messaging_product: "whatsapp",
+        to: phoneNumber,
+        type: "template",
+        template: {
+          name: selectTemp,
+          language: {
+            "code": "en_US"
+          }
+        }
+      },
+      {
+        headers: {
+          Authorization: 'Bearer EAARKnq3oBa4BOZB8qiby3HyQK1uHD307ZA8rJGU8av34ZB8b3onxWtYhYqldQ8m5b5gpN720ivwq77aYrYpd9E0sJ0sum94IZCDOuCBZAhrMDrWFsyP2h9LY14U3rAZA0lBagCZBfuRUadeijpHFb1ZCEEUBC0jggtdNWp088apu9cYDK0I41JiuzcHRuUYxT5ZAdaeRZA8m3yZBs6O6LY9',
+          "Content-Type": "application/json"
+        },
+      }
+    );
+
+    console.log("Response:", response.data);
+    res.status(200).send('Message sent successfully');
+  } catch (error) {
+    console.error('Error sending message:', error.response.data);
+    res.status(500).send('Error sending message');
+  }
+});
 app.listen(port, () => {
   console.log(`Server Running at http://localhost:${port}`);
 })
